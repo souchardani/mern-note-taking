@@ -21,22 +21,27 @@ const port = process.env.PORT || 5001;
 const __dirname = path.resolve();
 
 // CORS configuration
-let whitelist = ["http://localhost:5173"]; // add your frontend url
-
-if (process.env.NODE_ENV === "production") {
-  //production config
-  //replace YOUR_FRONTEND_URL with your actual frontend url
-  whitelist = [process.env.FRONTEND_URL]; // Render URL
-}
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? [process.env.FRONTEND_URL].filter(Boolean) // Filtra undefined/null
+    : ["http://localhost:5173", "http://localhost:5174"];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    // Permitir requests sin origin (mismo servidor, Postman, curl, SSR)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // Verificar si el origin está en la lista permitida
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      logger.warn(`CORS blocked request from origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
