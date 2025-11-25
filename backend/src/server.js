@@ -47,7 +47,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //middleware
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Deshabilitar CSP para evitar conflictos con React
+    crossOriginEmbedderPolicy: false,
+  })
+);
 app.use(express.json()); //this middleware will parse the json bodies: req.body
 
 app.use(rateLimiter);
@@ -64,13 +69,17 @@ if (process.env.NODE_ENV === "production") {
 //   next();
 // });
 
+// API routes ANTES de static files
 app.use("/api/notes", notesRoutes);
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
+// Servir archivos estáticos en producción
 if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  // Catch-all route - DEBE estar al final
+
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../frontend", "dist", index.html));
   });
 }
 
