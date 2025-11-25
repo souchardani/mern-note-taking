@@ -1,0 +1,22 @@
+{
+  "name": "mern-note-taking",
+  "version": "1.0.0",
+  "description": "![Promo Image](frontend/public/promo.png)",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm -F backend install && pnpm -F frontend install && pnpm -F frontend build",
+    "start": "pnpm -F backend start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souchardani/mern-note-taking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/souchardani/mern-note-taking/issues"
+  },
+  "homepage": "https://github.com/souchardani/mern-note-taking#readme"
+}
