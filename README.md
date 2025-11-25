@@ -1,3 +1,5 @@
+![Promo Image](frontend/public/promo.png)
+
 # 🗒️ Basic Notes App – v1.0
 
 This is the **first version** of a simple application created for testing purposes and to establish the foundation of the project.
