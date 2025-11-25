@@ -21,7 +21,6 @@ const NoteDetailPage = () => {
       toast.success("The note was deleted succesfully");
       navigate("/");
     } catch (error) {
-      console.log("Error deleting the note", error);
       toast.error("There was an error deleting the note");
     }
   };
@@ -42,7 +41,6 @@ const NoteDetailPage = () => {
       toast.success("The note was edited succesfully");
       navigate("/");
     } catch (error) {
-      console.log("Error editing the note", error);
       toast.error("There was an error editing the note");
     } finally {
       setSaving(false);
@@ -55,7 +53,6 @@ const NoteDetailPage = () => {
         const res = await api.get(`notes/${id}`);
         setNote(res.data);
       } catch (error) {
-        console.log("Error in fetchNote", error);
         toast.error("Failed to get the note");
       } finally {
         setLoading(false);
@@ -105,6 +102,7 @@ const NoteDetailPage = () => {
                   className="input input-bordered"
                   value={note.title}
                   onChange={(e) => setNote({ ...note, title: e.target.value })}
+                  maxLength="200"
                 />
               </div>
 
@@ -119,6 +117,7 @@ const NoteDetailPage = () => {
                   onChange={(e) =>
                     setNote({ ...note, content: e.target.value })
                   }
+                  maxLength="5000"
                 />
               </div>
 

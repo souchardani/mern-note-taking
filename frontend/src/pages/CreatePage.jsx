@@ -34,7 +34,6 @@ const CreatePage = () => {
           icon: "💀",
         });
       } else {
-        console.log("Error creating the note", error);
         toast.error("Failed to create note");
       }
     } finally {
@@ -65,6 +64,7 @@ const CreatePage = () => {
                     value={title}
                     placeholder="Note Title"
                     onChange={(e) => setTitle(e.target.value)}
+                    maxLength="200"
                   />
                 </div>
                 <div className="form-control mb-4">
@@ -76,6 +76,7 @@ const CreatePage = () => {
                     value={content}
                     placeholder="Write your note here..."
                     onChange={(e) => setContent(e.target.value)}
+                    maxLength="5000"
                   />
                 </div>
 
