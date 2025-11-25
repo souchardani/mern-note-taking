@@ -15,12 +15,10 @@ const NoteCard = ({ note, setNotes }) => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      api.delete(`http://localhost:5001/api/notes/${id}`);
+      await api.delete(`/notes/${id}`);
       toast.success("Note deleted succesfully");
       setNotes((prev) => prev.filter((tempNote) => tempNote._id != id)); //get rid of the deleted one
-      navigate("/");
     } catch (err) {
-      console.log("Error in handleDelete", err);
       toast.error("Failed to delete the note");
     }
   };
